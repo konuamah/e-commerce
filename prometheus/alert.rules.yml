@@ -1,0 +1,20 @@
+groups:
+  - name: Django alerts
+    rules:
+      - alert: HighRequestLatency
+        expr: django_http_requests_latency_seconds_bucket{le="2.0"} < 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency on Django"
+          description: "More than 20% of requests take longer than 2 seconds."
+
+      - alert: HighErrorRate
+        expr: rate(django_http_requests_total{status=~"5.."}[1m]) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High 5xx error rate"
+          description: "More than 5% of requests are failing with 5xx errors."

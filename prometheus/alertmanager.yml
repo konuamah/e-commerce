@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  receiver: default
+
+receivers:
+  - name: default
+    email_configs:
+      - to: your@email.com
+        from: alert@example.com
+        smarthost: smtp.your-email-provider.com:587
+        auth_username: your@email.com
+        auth_password: your_email_password
+        require_tls: true
